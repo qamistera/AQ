@@ -1,0 +1,4 @@
+[DEBUG] URL: https://api.clickup.com/api/v2/task/nope-task-000
+[DEBUG] PAYLOAD: {'name': 'Should not work'}
+[DEBUG] STATUS: 401
+[DEBUG] BODY: {"err":"Team not authorized","ECODE":"OAUTH_027"}

@@ -1,0 +1,104 @@
+### Получить токен авторизации
+POST https://restful-booker.herokuapp.com/auth
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "admin",
+  "password": "password123"
+}
+
+> {% client.global.set("token", response.body.token) %}
+
+###
+
+### Создать бронирование, используя токен из первого запроса
+POST https://restful-booker.herokuapp.com/booking
+Content-Type: application/json
+Accept: application/json
+
+{
+  "firstname": "Andrew",
+  "lastname": "Tate",
+  "totalprice": 100000,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2024-04-05",
+    "checkout": "2024-04-08"
+  },
+  "additionalneeds": "Cigars"
+}
+
+###
+
+### Обновить бронирование, используя токен из первого запроса
+PUT https://restful-booker.herokuapp.com/booking/1472
+Content-Type: application/json
+Accept: application/json
+#Cookie: token=832719bbdcbb0ea
+Authorization: Basic YWRtaW46cGFzc3dvcmQxMjM=
+#Cookie: token={{token}}
+
+{
+  "firstname": "Andrew",
+  "lastname": "Tate",
+  "totalprice": 100000,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2024-04-05",
+    "checkout": "2024-04-08"
+  },
+  "additionalneeds" : "Breakfast"
+}
+
+
+###
+
+### Частично Обновить бронирование, используя токен из первого запроса
+PATCH https://restful-booker.herokuapp.com/booking/2695
+Content-Type: application/json
+Accept: application/json
+#Cookie: token=832719bbdcbb0ea
+Authorization: Basic YWRtaW46cGFzc3dvcmQxMjM=
+#Cookie: token={{token}}
+
+{
+  "firstname": "Andrew",
+  "lastname": "Tate",
+  "totalprice": 200000,
+  "depositpaid": true,
+  "bookingdates": {"checkin": "2024-04-05", "checkout": "2024-04-08"},
+  "additionalneeds" : "Breakfast"
+}
+
+###
+
+### Удалить бронирование, используя токен из первого запроса
+DELETE https://restful-booker.herokuapp.com/booking/2695
+Content-Type: application/json
+#Cookie: token=832719bbdcbb0ea
+Authorization: Basic YWRtaW46cGFzc3dvcmQxMjM=
+#Cookie: token={{token}}
+
+###
+
+### Проверка Ping
+GET https://restful-booker.herokuapp.com/ping
+
+###
+
+### Авторизация в Pomidor API
+
+POST https://api.pomidor-stage.ru/api/v1/login/access-token
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+grant_type=password&username=prime%40mail.ru&password=123456789&scope=&client_id=string&client_secret=string
+
+###
+### Запрос items
+GET https://api.pomidor-stage.ru/api/v1/items/?skip=0&limit=2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0NjY5MTksInN1YiI6ImM5ZTkyMzY5LWE0MDYtNGVhYi1iYjBlLTU4YmJkYWZhMjA3NyJ9.CyIeZJwxwPwjkAuqDWA6TxhqPqG1IzZPCV-QaT2JDb0
+Content-Type: application/json
+Accept: application/json
+Parameters: skip=0, limit=2
